@@ -1,8 +1,4 @@
 <?php
-$db_host=""; //Hostname for mysql
-$db_username=""; //username for mysqli
-$db_password=''; //password for mysqli
-$db_database=""; //database name
 
 
 //initiating the connections
@@ -17,5 +13,5 @@ if ($conn->connect_error) {
 
 
 
-$conn->close();
+
 ?>
