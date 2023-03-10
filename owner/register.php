@@ -1,13 +1,15 @@
 <?php
-require 'config.php'; //configuration for database connection
+require '../config.php'; //configuration for database connection
     if(isset($_POST['submit'])){  //To prevent automated requests      
         session_start();
             if((isset($_POST['name']) && isset($_POST['password'])) && ( ($_POST['name'] != NULL) && ($_POST['password']) !=NULL)){
                     $_SESSION['reg']=1; //To recognise whether the user was logged in or not
-                    $sql= "INSERT INTO customr(id, username, password, notifications) VALUES ('','". $_POST['name'] . "','" . $_POST['password'] . "','')";
-
+                    $sql= "INSERT INTO owner(id, username, password, tokensc) VALUES ('','". $_POST['name'] . "','" . $_POST['password'] . "','')";
+                        //tokensc includes the collected tokens by a merchant as JSON
                     if ($conn->query($sql) === TRUE) {
-                        $_SESSION['name']= $_POST['name'];
+                        $_SESSION['owner']= $_POST['name'];
+                        echo '<script>alert("You have been successfully registered");</script>';
+                        //header("Location: index.php");
                       } else {
                         echo "Error on sql operation " . $conn->error;
                       }
