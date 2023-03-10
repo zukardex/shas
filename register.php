@@ -7,7 +7,7 @@ require 'config.php'; //configuration for database connection
                     $sql= "INSERT INTO customr(id, username, password, notifications) VALUES ('','". $_POST['name'] . "','" . $_POST['password'] . "','')";
 
                     if ($conn->query($sql) === TRUE) {
-                        echo "sql operation done successfully";
+                        $_SESSION['name']= $_POST['name'];
                       } else {
                         echo "Error on sql operation" . $conn->error;
                       }
