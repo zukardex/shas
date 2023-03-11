@@ -1,10 +1,11 @@
+
 <?php
 session_start();
 if($_SESSION['reg'] ==NULL) {
     //user not logged in
     header("Location: register.php");
 }
-
+echo "Hello, <h3>" . $_SESSION['name'] . "</h3>";
 function token(){
     require 'config.php';
     $i=0;
@@ -29,15 +30,30 @@ function token(){
 }
 
 ?>
-<script>
+<script> 
+
     function generate(){
         document.location="?t=0";
     }
-</script><button id="butn" style="font-style:bold; width:100%; font-size:200%;" onClick="generate()">Generate new Token </button>
+    setInterval(updateConn, 2000);
+    var str=0; //Number of currently listed shops
+    function updateConn(){
+        const xmlhttp = new XMLHttpRequest();
+        xmlhttp.onload = function() {
+            document.getElementById("conn").innerHTML = this.responseText;
+        }
+        xmlhttp.open("GET", "getConn.php?q=" + str);
+        xmlhttp.send();
+    }
+</script>
+
+<button id="butn" style="font-style:bold; width:100%; font-size:200%;" onClick="generate()">Generate new Token </button>
 <div id="token" border="5px" style="font-size: 250%;" align="center">
 <?php if(isset($_GET['t']) && $_GET['t'] == 0){ echo token();} ?>
 </div>
-<div>
+<style>div.noti{ overflow-y:auto;}</style>
 <strong><u>Connected Shops</u></strong>
+<div id="conn">
+
 <!-- Connected shops with this particular user will be listed here -->
 </div>
